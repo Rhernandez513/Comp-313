@@ -308,3 +308,10 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+# Created by https://www.gitignore.io/api/mercurial
+
+### Mercurial ###
+/.hg/*
+*/.hg/*
+.hgignore
+
