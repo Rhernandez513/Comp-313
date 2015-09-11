@@ -1,4 +1,4 @@
-package cs271.lab.list;
+package cs313.lab.list;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class TestIterator {
 	@Before
 	public void setUp() throws Exception {
 		list = new ArrayList<Integer>();
+		// List list = new LinkedList<Integer>();
 		// TODO also try with a LinkedList - does it make any difference?
 	}
 
@@ -48,17 +50,17 @@ public class TestIterator {
 		assertEquals(33, i.next().intValue());
 		// TODO fix the expected values in the assertions below
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(77, i.next().intValue());
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(44, i.next().intValue());
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(77, i.next().intValue());
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(55, i.next().intValue());
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(77, i.next().intValue());
 		assertTrue(i.hasNext());
-		assertEquals(0, i.next().intValue());
+		assertEquals(66, i.next().intValue());
 		assertFalse(i.hasNext());
 	}
 

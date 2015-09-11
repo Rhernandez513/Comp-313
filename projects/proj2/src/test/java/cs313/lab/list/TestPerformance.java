@@ -1,4 +1,4 @@
-package cs271.lab.list;
+package cs313.lab.list;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
