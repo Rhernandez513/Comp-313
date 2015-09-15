@@ -17,10 +17,8 @@ public class TestIterator {
 
 	@Before
 	public void setUp() throws Exception {
-//		list = new ArrayList<Integer>();
-		// List list = new LinkedList<Integer>();
-		// TODO also try with a LinkedList - does it make any difference?
-		list = new LinkedList<Integer>();
+		list = new ArrayList<Integer>();
+		// list = new LinkedList<Integer>();
 	}
 
 	@After
@@ -46,7 +44,6 @@ public class TestIterator {
 		final Iterator<Integer> i = list.iterator();
 		assertTrue(i.hasNext());
 		assertEquals(33, i.next().intValue());
-		// TODO fix the expected values in the assertions below
 		assertTrue(i.hasNext());
 		assertEquals(77, i.next().intValue());
 		assertTrue(i.hasNext());
@@ -74,12 +71,9 @@ public class TestIterator {
 		final Iterator<Integer> i = list.iterator();
 		while (i.hasNext()) {
 			if (i.next() == 77) {
-				i.remove(); // TODO what happens if you use list.remove(77)?
-        // list.remove(77); // IndexOutofBounds Exception
+				i.remove(); 
 			}
 		}
-		// TODO using assertEquals and Arrays.asList (see above)
-		// express which values are left in the list
 		final Iterator<Integer> secondIter = list.iterator();
     while (secondIter.hasNext()) {
       int test = secondIter.next();
@@ -99,8 +93,6 @@ public class TestIterator {
 		list.add(66);
 		double sum = 0;
 		int n = 0;
-		// TODO use an iterator and a while loop to compute the average (mean) of the values
-		// (defined as the sum of the items divided by the number of items)
 		final Iterator<Integer> iter = list.iterator();
     while (iter.hasNext()) {
       sum += iter.next();
