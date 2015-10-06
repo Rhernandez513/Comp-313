@@ -17,24 +17,22 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onFill(final Fill f) {
-		return null;
+		return new Location(-1, -1, f);
 	}
 
 	@Override
 	public Location onGroup(final Group g) {
-
 		return null;
 	}
 
 	@Override
 	public Location onLocation(final Location l) {
-
-		return null;
+		return l;
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
-		return null;
+		return new Location(-1, -1, r);
 	}
 
 	@Override

@@ -30,4 +30,3 @@ public class Stroke implements Shape {
 		return v.onStroke(this);
 	}
 }
-}

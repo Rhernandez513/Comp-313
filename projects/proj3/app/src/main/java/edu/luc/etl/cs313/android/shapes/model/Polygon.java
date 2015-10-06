@@ -22,5 +22,4 @@ public class Polygon extends Group {
 		// FIXED
 		return  v.onPolygon(this);
 	}
-	}
 }

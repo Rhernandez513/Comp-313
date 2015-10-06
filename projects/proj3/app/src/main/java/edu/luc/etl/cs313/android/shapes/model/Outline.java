@@ -21,5 +21,4 @@ public class Outline implements Shape {
 		// FIXED
 		return v.onOutline(this);
 	}
-	}
 }
