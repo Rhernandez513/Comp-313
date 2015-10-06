@@ -19,7 +19,8 @@ public class Polygon extends Group {
 
 	@Override
 	public <Result> Result accept(final Visitor<Result> v) {
-		// TODO your job
-		return null;
+		// FIXED
+		return  v.onPolygon(this);
+	}
 	}
 }
