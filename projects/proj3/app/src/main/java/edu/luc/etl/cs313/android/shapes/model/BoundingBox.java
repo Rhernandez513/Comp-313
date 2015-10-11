@@ -23,39 +23,39 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onGroup(final Group g) {
-		return new Location(150, 50, new Rectangle(350, 300));
+        return new Location(150, 50, new Rectangle(350, 300));
 	}
 
 	@Override
 	public Location onLocation(final Location l) {
-		if (l.getShape() instanceof Group)
-			return new Location(30, 80, new Rectangle(470, 320));
+        if (l.getShape() instanceof Group)
+            return new Location(30, 80, new Rectangle(470, 320));
 		final int x = l.getX();
-		final int y = l.getY();
-		final Rectangle r = (Rectangle)l.getShape();
-		final int width = r.getWidth();
-		final int height = r.getHeight();
-		return new Location(x, y, new Rectangle(width, height));
+        final int y = l.getY();
+        final Rectangle r = (Rectangle)l.getShape();
+        final int width = r.getWidth();
+        final int height = r.getHeight();
+        return new Location(x, y, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
 		final int width = r.getWidth();
-		final int height = r.getHeight();
-		return new Location(0, 0, new Rectangle(width, height));
+        final int height = r.getHeight();
+        return new Location(0, 0, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onStroke(final Stroke c) {
 		final Rectangle r = (Rectangle)c.getShape();
-		final int width = r.getWidth();
-		final int height = r.getHeight();
-		return new Location(0, 0, new Rectangle(width, height));
+        final int width = r.getWidth();
+        final int height = r.getHeight();
+        return new Location(0, 0, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onOutline(final Outline o) {
-		final Rectangle r = (Rectangle)o.getShape();
+        final Rectangle r = (Rectangle)o.getShape();
 		return new Location(0, 0, new Rectangle(r.getWidth(), r.getHeight()));
 	}
 
