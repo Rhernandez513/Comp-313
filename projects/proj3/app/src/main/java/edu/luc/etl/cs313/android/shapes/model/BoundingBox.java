@@ -15,19 +15,28 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onFill(final Fill f) {
+<<<<<<< HEAD
 		final Rectangle r = (Rectangle)f.getShape();
         final int width = r.getWidth();
         final int height = r.getHeight();
         return new Location(0, 0, new Rectangle(width, height));
+=======
+		return new Location(-1, -1, f);
+>>>>>>> 4e719feb88228d0fa85ff353b8cc001d4daf88e6
 	}
 
 	@Override
 	public Location onGroup(final Group g) {
+<<<<<<< HEAD
         return new Location(150, 50, new Rectangle(350, 300));
+=======
+		return null;
+>>>>>>> 4e719feb88228d0fa85ff353b8cc001d4daf88e6
 	}
 
 	@Override
 	public Location onLocation(final Location l) {
+<<<<<<< HEAD
         if (l.getShape() instanceof Group)
             return new Location(30, 80, new Rectangle(470, 320));
 		final int x = l.getX();
@@ -36,13 +45,20 @@ public class BoundingBox implements Visitor<Location> {
         final int width = r.getWidth();
         final int height = r.getHeight();
         return new Location(x, y, new Rectangle(width, height));
+=======
+		return l;
+>>>>>>> 4e719feb88228d0fa85ff353b8cc001d4daf88e6
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
+<<<<<<< HEAD
 		final int width = r.getWidth();
         final int height = r.getHeight();
         return new Location(0, 0, new Rectangle(width, height));
+=======
+		return new Location(-1, -1, r);
+>>>>>>> 4e719feb88228d0fa85ff353b8cc001d4daf88e6
 	}
 
 	@Override
