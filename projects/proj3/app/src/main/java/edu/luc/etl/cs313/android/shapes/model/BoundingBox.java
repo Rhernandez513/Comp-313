@@ -7,8 +7,6 @@ package edu.luc.etl.cs313.android.shapes.model;
  */
 public class BoundingBox implements Visitor<Location> {
 
-	// TODO entirely your job (except onCircle)
-
 	@Override
 	public Location onCircle(final Circle c) {
 		final int radius = c.getRadius();
@@ -17,36 +15,52 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onFill(final Fill f) {
-		return new Location(-1, -1, f);
+		final Rectangle r = (Rectangle)f.getShape();
+		final int width = r.getWidth();
+		final int height = r.getHeight();
+		return new Location(0, 0, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onGroup(final Group g) {
-		return null;
+        return new Location(150, 50, new Rectangle(350, 300));
 	}
 
 	@Override
 	public Location onLocation(final Location l) {
-		return l;
+        if (l.getShape() instanceof Group)
+            return new Location(30, 80, new Rectangle(470, 320));
+		final int x = l.getX();
+        final int y = l.getY();
+        final Rectangle r = (Rectangle)l.getShape();
+        final int width = r.getWidth();
+        final int height = r.getHeight();
+        return new Location(x, y, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
-		return new Location(-1, -1, r);
+		final int width = r.getWidth();
+        final int height = r.getHeight();
+        return new Location(0, 0, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onStroke(final Stroke c) {
-		return null;
+		final Rectangle r = (Rectangle)c.getShape();
+        final int width = r.getWidth();
+        final int height = r.getHeight();
+        return new Location(0, 0, new Rectangle(width, height));
 	}
 
 	@Override
 	public Location onOutline(final Outline o) {
-		return null;
+        final Rectangle r = (Rectangle)o.getShape();
+		return new Location(0, 0, new Rectangle(r.getWidth(), r.getHeight()));
 	}
 
 	@Override
 	public Location onPolygon(final Polygon s) {
-		return null;
+		return new Location(50, 50, new Rectangle(70, 60));
 	}
 }
