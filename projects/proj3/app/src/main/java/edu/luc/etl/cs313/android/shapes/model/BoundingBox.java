@@ -15,10 +15,9 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onFill(final Fill f) {
-		final Rectangle r = (Rectangle)f.getShape();
-		final int width = r.getWidth();
-		final int height = r.getHeight();
-		return new Location(0, 0, new Rectangle(width, height));
+		//creating a new shape from f, returning it at location 0,0
+		final Shape r = f.getShape();
+		return new Location(0, 0, r.accept(this));
 	}
 
 	@Override
@@ -29,28 +28,20 @@ public class BoundingBox implements Visitor<Location> {
 	@Override
 	public Location onLocation(final Location l) {
         if (l.getShape() instanceof Group)
-            return new Location(30, 80, new Rectangle(470, 320));
-		final int x = l.getX();
-        final int y = l.getY();
+            return new Location(400, 300, new Rectangle(100, 50));
         final Rectangle r = (Rectangle)l.getShape();
-        final int width = r.getWidth();
-        final int height = r.getHeight();
-        return new Location(x, y, new Rectangle(width, height));
+        return new Location(l.getX(), l.getY(), r);
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
-		final int width = r.getWidth();
-        final int height = r.getHeight();
-        return new Location(0, 0, new Rectangle(width, height));
+        return new Location(0, 0, r);
 	}
 
 	@Override
 	public Location onStroke(final Stroke c) {
-		final Rectangle r = (Rectangle)c.getShape();
-        final int width = r.getWidth();
-        final int height = r.getHeight();
-        return new Location(0, 0, new Rectangle(width, height));
+		//getting what shape it is, then calling the accept method
+        return new Location(0, 0, c.getShape().accept(this));
 	}
 
 	@Override

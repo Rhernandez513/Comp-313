@@ -33,22 +33,27 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onStroke(final Stroke c) {
+		//specifying the stroke color to draw the shape
 		paint.setColor(c.getColor());
+		// visitor moves through the decorators
 		c.getShape().accept(this);
 		return null;
 	}
 
 	@Override
 	public Void onFill(final Fill f) {
+		//set the style of paint to fill the shape
 		paint.setStyle(Style.FILL);
+		//visitor moves through the decorators
 		f.getShape().accept(this);
 		return null;
 	}
 
 	@Override
 	public Void onGroup(final Group g) {
+		// for all the shapes in g, have a recursive call to the draw functions
 		for (Shape s: g.getShapes())
-		{s.accept(this);}
+		{ s.accept(this); }
 		return null;
 	}
 
@@ -58,7 +63,6 @@ public class Draw implements Visitor<Void> {
 		canvas.translate(l.getX(), l.getY());
 		Shape s = l.getShape();
 		s.accept(this);
-		//canvas.restore();
 		return null;
 	}
 
@@ -77,7 +81,10 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onPolygon(final Polygon s) {
+		//Returning the list of points from s
 		List<? extends Point> p = s.getPoints();
+		//Draw a series of lines. Each pair of points is start to finish,
+		//Need to draw four lines to make the polygon
 		final float[] pts = {
 				p.get(0).getX(), p.get(0).getY(),
 				p.get(1).getX(), p.get(1).getY(),
@@ -88,7 +95,7 @@ public class Draw implements Visitor<Void> {
 				p.get(3).getX(), p.get(3).getY(),
 				p.get(0).getX(), p.get(0).getY(),
 		};
-
+		//this method invokes the aforementioned drawing
 		canvas.drawLines(pts, paint);
 		return null;
 	}
