@@ -10,7 +10,13 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onPolygon(final Polygon p) {
-		return 1;
+    // int count = 0;
+    // for (Point point : p.getPoints()) {
+    //   count += point.accept(this);
+    // }
+    // return count;
+
+		return 1;  // Would a polygon count as one shape?
 	}
 
 	@Override
@@ -20,7 +26,13 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-		return g.getShapes().size();
+		return g.getShapes().size(); // Group doesn't have a size method
+
+    // int count = 0;
+    // for (Shape shape : g.getShapes()) {
+    //   count += shape.accept(this);
+    // }
+    // return count;
 	}
 
 	@Override
@@ -30,22 +42,28 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onOutline(final Outline o) {
-		return 1;
+    // I don't think that an outline affects size but is only a decorator
+		return o.getShape().accept(this);
 	}
 
 	@Override
-	public Integer onFill(final Fill c) {
-		return 1;
+	public Integer onFill(final Fill f) {
+    // Same as outline?
+		return f.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onLocation(final Location l) {
-		if (!(l.getShape() instanceof Group)){return 1;}
-		return 6;
+		if (!(l.getShape() instanceof Group)) { return 1; }
+      return 6; // I see what your doing but is Group limited to 6?
+
+    // Same thing as outline?
+		// return l.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onStroke(final Stroke c) {
-		return 1;
+    // Same thing as outline & location?
+		return c.getShape().accept(this);
 	}
 }
