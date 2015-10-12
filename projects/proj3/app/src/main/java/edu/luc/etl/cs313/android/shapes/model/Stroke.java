@@ -6,7 +6,8 @@ package edu.luc.etl.cs313.android.shapes.model;
  */
 public class Stroke implements Shape {
 
-	// TODO entirely your job
+	// FINISHED
+
 	private int color; //added private variable
 	private Shape shape; //added private variable
 
