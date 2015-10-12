@@ -19,12 +19,24 @@ public class BoundingBox implements Visitor<Location> {
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(0, 0, new Rectangle(width, height));
-    //  return new Location(-1, -1, f);
+   
+    // This should recursively cause the boundingbox to drill into the shape
+		// return f.getShape().accept(this);
   }
 
   @Override
   public Location onGroup(final Group g) {
     return new Location(150, 50, new Rectangle(350, 300));
+
+    // I'm was thinking something like the 
+    // first child-shape would have an actual location?
+    //
+    // Location loc = new Location(0, 0, g);
+    // for (Shape shape : g.getShapes()) {
+    //   loc = shape.accept(this);
+    //   if (loc.getX() != 0 || loc.getY() != 0) { break; }
+    // }
+    // return loc;
   }
 
   @Override
@@ -37,6 +49,9 @@ public class BoundingBox implements Visitor<Location> {
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(x, y, new Rectangle(width, height));
+
+    // Function returns a Location object, why overthink it?
+		// return l;
   }
 
   @Override
@@ -44,26 +59,38 @@ public class BoundingBox implements Visitor<Location> {
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(0, 0, new Rectangle(width, height));
+
+    // Both of these make sense maybe, no need to re-wrap a rectangle in a rectangle
     //  return new Location(-1, -1, r);
+    //  return new Location(0, 0, r);
   }
 
   @Override
-  public Location onStroke(final Stroke c) {
+  public Location onStroke(final Stroke s) {
     final Rectangle r = (Rectangle)c.getShape();
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(0, 0, new Rectangle(width, height));
+
+    //  Recursive call
+    //  return s.getShape().accept(this);
   }
 
   @Override
   public Location onOutline(final Outline o) {
     final Rectangle r = (Rectangle)o.getShape();
     return new Location(0, 0, new Rectangle(r.getWidth(), r.getHeight()));
+
+    //  Recursive call
+    //  return o.getShape().accept(this);
   }
 
   @Override
   public Location onPolygon(final Polygon s) {
+
+    // TODO Fix this hard coded stuff
     return new Location(50, 50, new Rectangle(70, 60));
   }
+
 }
 
