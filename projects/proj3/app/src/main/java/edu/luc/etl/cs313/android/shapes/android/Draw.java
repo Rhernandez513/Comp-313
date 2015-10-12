@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import edu.luc.etl.cs313.android.shapes.model.*;
 
@@ -79,14 +80,26 @@ public class Draw implements Visitor<Void> {
 
   @Override
   public Void onPolygon(final Polygon p) {
-    //Returning the list of points from p
-    List<? extends Point> points = p.getPoints();
-    points.add(p.get(0));
-    assert (points.size() >= 4);
-    List<float> pts;
-    for (int i = 0, length = points.size(); i < length; ++i) {
-      pts.add(p.get(i).getX());
-      pts.add(p.get(i).getY());
+    // Extract an array of points from the polygon
+    Point[] points = p.getPoints().toArray(new Point[p.getPoints().size()+1]);
+
+    // canvas.drawLines needs >= 4 points
+    assert (points.length >= 4);
+
+    // Add last element to first to complete drawing
+    points[points.length-1] = points[0];
+
+    // "convert" to float vals
+    List<Float> float_list = new ArrayList<Float>();
+    for (int i = 0; i < points.length; ++i) {
+      float_list.add(new Float(points[i++].getX()));
+      float_list.add(new Float(points[i].getY()));
+    }
+
+    float[] floatArray = new float[float_list.size()];
+    int j = 0;
+    for (Float f : float_list) {
+      floatArray[j++] = (f != null ? f : Float.NaN); // Or whatever default you want.
     }
     
     ////Draw a series of lines. Each pair of points is start to finish,
@@ -104,7 +117,8 @@ public class Draw implements Visitor<Void> {
 
     //this method invokes the aforementioned drawing
     // canvas.drawLines(pts, paint);
-    canvas.drawLines(pts.toArray(new float[pts.size()]), paint);
+    // canvas.drawLines(float_list.toArray(new float[float_list.size()]), paint);
+    canvas.drawLines(floatArray, paint);
     return null;
   }
 }

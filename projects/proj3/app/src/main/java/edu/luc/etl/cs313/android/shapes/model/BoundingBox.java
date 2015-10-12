@@ -21,17 +21,17 @@ public class BoundingBox implements Visitor<Location> {
 
   @Override
   public Location onGroup(final Group g) {
-    return new Location(150, 50, new Rectangle(350, 300));
+    // return new Location(150, 50, new Rectangle(350, 300));
 
     // I'm was thinking something like the 
     // first child-shape would have an actual location?
     //
-    // Location loc = new Location(0, 0, g);
-    // for (Shape shape : g.getShapes()) {
-    //   loc = shape.accept(this);
-    //   if (loc.getX() != 0 || loc.getY() != 0) { break; }
-    // }
-    // return loc;
+    Location loc = new Location(0, 0, g);
+    for (Shape shape : g.getShapes()) {
+      loc = shape.accept(this);
+      if (loc.getX() != 0 || loc.getY() != 0) { break; }
+    }
+    return loc;
   }
 
   @Override
@@ -41,7 +41,7 @@ public class BoundingBox implements Visitor<Location> {
 
   @Override
   public Location onRectangle(final Rectangle r) {
-    return new Location(r.getWidth(), -r.getHeight(), r); 
+    return new Location(0, 0, r); 
   }
 
   @Override
@@ -60,6 +60,7 @@ public class BoundingBox implements Visitor<Location> {
   public Location onPolygon(final Polygon s) {
     // TODO Fix this hard coded stuff
     return new Location(50, 50, new Rectangle(70, 60));
+    // return new Location(0, 0, new Rectangle(70, 60));
   }
 }
 
