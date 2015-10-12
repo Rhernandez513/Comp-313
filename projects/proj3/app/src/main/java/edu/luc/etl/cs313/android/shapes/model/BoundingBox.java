@@ -19,7 +19,7 @@ public class BoundingBox implements Visitor<Location> {
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(0, 0, new Rectangle(width, height));
-    //    return new Location(-1, -1, f);
+    //  return new Location(-1, -1, f);
   }
 
   @Override
@@ -44,7 +44,7 @@ public class BoundingBox implements Visitor<Location> {
     final int width = r.getWidth();
     final int height = r.getHeight();
     return new Location(0, 0, new Rectangle(width, height));
-    //return new Location(-1, -1, r);
+    //  return new Location(-1, -1, r);
   }
 
   @Override
