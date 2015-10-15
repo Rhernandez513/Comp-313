@@ -99,7 +99,7 @@ public class Draw implements Visitor<Void> {
     // "convert" to float vals
     List<Float> float_list = new ArrayList<Float>();
     for (int i = 0; i < points.length; ++i) {
-      float_list.add(new Float(points[i++].getX()));
+      float_list.add(new Float(points[i].getX()));
       float_list.add(new Float(points[i].getY()));
     }
 
