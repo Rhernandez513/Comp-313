@@ -20,7 +20,11 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-		return g.getShapes().size();
+		int count = 0;
+		for (Shape shape : g.getShapes()) {
+			count += shape.accept(this);
+		}
+		return count;
 	}
 
 	@Override
@@ -30,22 +34,21 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onOutline(final Outline o) {
-		return 1;
+		return o.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onFill(final Fill c) {
-		return 1;
+		return c.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onLocation(final Location l) {
-		if (!(l.getShape() instanceof Group)){return 1;}
-		return 6;
+		return l.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onStroke(final Stroke c) {
-		return 1;
+		return c.getShape().accept(this);
 	}
 }
