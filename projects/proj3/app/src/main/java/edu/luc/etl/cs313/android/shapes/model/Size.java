@@ -20,13 +20,11 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-		// return g.getShapes().size();
-
-    int count = 0;
-    for (Shape shape : g.getShapes()) {
-      count += shape.accept(this);
-    }
-    return count;
+		int count = 0;
+		for (Shape shape : g.getShapes()) {
+			count += shape.accept(this);
+		}
+		return count;
 	}
 
 	@Override
@@ -46,9 +44,7 @@ public class Size implements Visitor<Integer> {
 
 	@Override
 	public Integer onLocation(final Location l) {
-		// if (!(l.getShape() instanceof Group)) { return 1; }
-    // return 6; // I see what your doing but is Group limited to 6?
-    return l.getShape().accept(this);
+		return l.getShape().accept(this);
 	}
 
 	@Override

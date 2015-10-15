@@ -14,8 +14,6 @@ import edu.luc.etl.cs313.android.shapes.model.*;
  */
 public class Draw implements Visitor<Void> {
 
-  // TODO entirely your job (except onCircle)
-
   private final Canvas canvas;
 
   private final Paint paint;
@@ -32,23 +30,27 @@ public class Draw implements Visitor<Void> {
     return null;
   }
 
-  @Override
-  public Void onStroke(final Stroke c) {
-    //specifying the stroke color to draw the shape
-    paint.setColor(c.getColor());
-    // visitor moves through the decorators
-    c.getShape().accept(this);
-    return null;
-  }
+	@Override
+	public Void onStroke(final Stroke c) {
+		int tempColor = paint.getColor();
+		//specifying the stroke color to draw the shape
+		paint.setColor(c.getColor());
+		// visitor moves through the decorators
+		c.getShape().accept(this);
+		paint.setColor(tempColor);
+		return null;
+	}
 
-  @Override
-  public Void onFill(final Fill f) {
-    //set the style of paint to fill the shape
-    paint.setStyle(Style.FILL);
-    //visitor moves through the decorators
-    f.getShape().accept(this);
-    return null;
-  }
+
+	@Override
+	public Void onFill(final Fill f) {
+		//set the style of paint to fill the shape
+		paint.setStyle(Style.FILL_AND_STROKE);
+		//visitor moves through the decorators
+		f.getShape().accept(this);
+		paint.setStyle(Style.STROKE);
+		return null;
+	}
 
   @Override
   public Void onGroup(final Group g) {
@@ -57,26 +59,31 @@ public class Draw implements Visitor<Void> {
     return null;
   }
 
-  @Override
-  public Void onLocation(final Location l) {
-    canvas.save();
-    canvas.translate(l.getX(), l.getY());
-    l.getShape().accept(this);
-    return null;
-  }
+	@Override
+	public Void onLocation(final Location l) {
+		int x = l.getX();
+		int y = l.getY();
+		canvas.translate(x, y);
+		Shape s = l.getShape();
+		s.accept(this);
+		canvas.translate(-x, -y);
+		return null;
+	}
 
-  @Override
-  public Void onRectangle(final Rectangle r) {
-    canvas.drawRect(0,0,r.getHeight(), r.getWidth(), paint);
-    return null;
-  }
+	@Override
+	public Void onRectangle(final Rectangle r) {
+		canvas.drawRect(0,0,r.getWidth(), r.getHeight(), paint);
+		return null;
+	}
 
-  @Override
-  public Void onOutline(Outline o) {
-    paint.setStyle(Style.STROKE);
-    o.getShape().accept(this);
-    return null;
-  }
+	@Override
+	public Void onOutline(Outline o) {
+		Style tmp = paint.getStyle();
+		paint.setStyle(Style.STROKE);
+		o.getShape().accept(this);
+		paint.setStyle(tmp);
+		return null;
+	}
 
   @Override
   public Void onPolygon(final Polygon p) {
@@ -102,6 +109,8 @@ public class Draw implements Visitor<Void> {
       floatArray[j++] = (f != null ? f : Float.NaN); // Or whatever default you want.
     }
     
+		////Returning the list of points from s
+		//List<? extends Point> p = s.getPoints();
     ////Draw a series of lines. Each pair of points is start to finish,
     ////Need to draw four lines to make the polygon
     //final float[] pts = {
@@ -117,6 +126,7 @@ public class Draw implements Visitor<Void> {
 
     //this method invokes the aforementioned drawing
     // canvas.drawLines(pts, paint);
+
     // canvas.drawLines(float_list.toArray(new float[float_list.size()]), paint);
     canvas.drawLines(floatArray, paint);
     return null;
