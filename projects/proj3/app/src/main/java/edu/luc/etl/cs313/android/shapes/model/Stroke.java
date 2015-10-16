@@ -8,8 +8,8 @@ public class Stroke implements Shape {
 
 	// FINISHED
 
-	private int color; //added private variable
-	private Shape shape; //added private variable
+	protected final int color;
+	protected final Shape shape;
 
 	public Stroke(final int color, final Shape shape)
 	{

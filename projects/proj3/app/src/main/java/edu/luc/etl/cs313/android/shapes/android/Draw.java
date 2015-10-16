@@ -14,13 +14,13 @@ import edu.luc.etl.cs313.android.shapes.model.*;
  */
 public class Draw implements Visitor<Void> {
 
-  private final Canvas canvas;
+  protected final Canvas canvas;
 
-  private final Paint paint;
+  protected final Paint paint;
 
   public Draw(final Canvas canvas, final Paint paint) {
-    this.canvas = canvas; // Done
-    this.paint = paint; // Done
+    this.canvas = canvas;
+    this.paint = paint;
     paint.setStyle(Style.STROKE);
   }
 
@@ -32,7 +32,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onStroke(final Stroke c) {
-		int tempColor = paint.getColor();
+		final int tempColor = paint.getColor();
 		//specifying the stroke color to draw the shape
 		paint.setColor(c.getColor());
 		// visitor moves through the decorators
@@ -61,12 +61,9 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onLocation(final Location l) {
-		int x = l.getX();
-		int y = l.getY();
-		canvas.translate(x, y);
-		Shape s = l.getShape();
-		s.accept(this);
-		canvas.translate(-x, -y);
+		canvas.translate(l.getX(), l.getY());
+    l.getShape().accept(this);
+		canvas.translate(-l.getX(), -l.getY());
 		return null;
 	}
 
@@ -78,7 +75,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onOutline(Outline o) {
-		Style tmp = paint.getStyle();
+		final Style tmp = paint.getStyle();
 		paint.setStyle(Style.STROKE);
 		o.getShape().accept(this);
 		paint.setStyle(tmp);
@@ -88,7 +85,7 @@ public class Draw implements Visitor<Void> {
   @Override
   public Void onPolygon(final Polygon p) {
     // Extract an array of points from the polygon
-    Point[] points = p.getPoints().toArray(new Point[p.getPoints().size()+1]);
+    final Point[] points = p.getPoints().toArray(new Point[p.getPoints().size()+1]);
 
     // canvas.drawLines needs >= 4 points
     assert (points.length >= 4);
@@ -96,38 +93,20 @@ public class Draw implements Visitor<Void> {
     // Add last element to first to complete drawing
     points[points.length-1] = points[0];
 
-    // "convert" to float vals
-    List<Float> float_list = new ArrayList<Float>();
+    // "convert" to float vals from points
+    final List<Float> float_list = new ArrayList<Float>();
     for (int i = 0; i < points.length; ++i) {
       float_list.add(new Float(points[i].getX()));
       float_list.add(new Float(points[i].getY()));
     }
 
-    float[] floatArray = new float[float_list.size()];
+    // Convertt Float Object to float primitive
+    final float[] floatArray = new float[float_list.size()];
     int j = 0;
     for (Float f : float_list) {
       floatArray[j++] = (f != null ? f : Float.NaN); // Or whatever default you want.
     }
     
-		////Returning the list of points from s
-		//List<? extends Point> p = s.getPoints();
-    ////Draw a series of lines. Each pair of points is start to finish,
-    ////Need to draw four lines to make the polygon
-    //final float[] pts = {
-    //  p.get(0).getX(), p.get(0).getY(),
-    //  p.get(1).getX(), p.get(1).getY(),
-    //  p.get(1).getX(), p.get(1).getY(),
-    //  p.get(2).getX(), p.get(2).getY(),
-    //  p.get(2).getX(), p.get(2).getY(),
-    //  p.get(3).getX(), p.get(3).getY(),
-    //  p.get(3).getX(), p.get(3).getY(),
-    //  p.get(0).getX(), p.get(0).getY(),
-    //};
-
-    //this method invokes the aforementioned drawing
-    // canvas.drawLines(pts, paint);
-
-    // canvas.drawLines(float_list.toArray(new float[float_list.size()]), paint);
     canvas.drawLines(floatArray, paint);
     return null;
   }

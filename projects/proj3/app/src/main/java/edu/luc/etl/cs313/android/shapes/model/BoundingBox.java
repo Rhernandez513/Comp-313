@@ -13,8 +13,8 @@ public class BoundingBox implements Visitor<Location> {
 
   @Override
   public Location onCircle(final Circle c) {
-		final int radius = c.getRadius();
-		return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
+    final int radius = c.getRadius();
+    return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
   }
 
   @Override
@@ -31,8 +31,8 @@ public class BoundingBox implements Visitor<Location> {
     int yup = Integer.MIN_VALUE;
     List<? extends Shape> l = g.getShapes();
     for (Shape shape : l) {
-      Location bb = shape.accept(this);
-      Rectangle rect = (Rectangle) bb.getShape();
+      final Location bb = shape.accept(this);
+      final Rectangle rect = (Rectangle) bb.getShape();
 
       xleft = Math.min(xleft, bb.getX());
       xright = Math.max(xright, bb.getX() + rect.getWidth());
@@ -41,27 +41,27 @@ public class BoundingBox implements Visitor<Location> {
     }
     //The x and y attributes in the Location class represent the coordinates that the Shape should be drawn at.
     // In the case of a Rectangle, this would be the top left corner and then it draws to the right and down (width and height)
-    return new Location(xleft, ydown, new Rectangle(xright-xleft, yup-ydown));
+    return new Location(xleft, ydown, new Rectangle(xright - xleft, yup - ydown));
   }
 
   @Override
   public Location onLocation(final Location l) {
-	  final int x = l.getX();
-	  final int y = l.getY();
+    final int x = l.getX();
+    final int y = l.getY();
 
-      Location myNewLocation = l.getShape().accept(this);
-      final int nX = myNewLocation.getX();
-      final int nY = myNewLocation.getY();
-	  return new Location(x + nX, y + nY, myNewLocation.getShape());
+    final Location myNewLocation = l.getShape().accept(this);
+    final int nX = myNewLocation.getX();
+    final int nY = myNewLocation.getY();
+    return new Location((x + nX), (y + nY), myNewLocation.getShape());
   }
 
   @Override
   public Location onRectangle(final Rectangle r) {
-    int x = r.getWidth();
-    int y = r.getHeight();
+    final int x = r.getWidth();
+    final int y = r.getHeight();
 
-    int startX = (1/2) * x;
-    int startY = (1/2) * y;
+    final int startX = (1/2) * x;
+    final int startY = (1/2) * y;
     return new Location(-startX, -startY, new Rectangle(x, y));
   }
 
@@ -83,7 +83,7 @@ public class BoundingBox implements Visitor<Location> {
     int xright = Integer.MIN_VALUE;
     int ydown = Integer.MAX_VALUE;
     int yup = Integer.MIN_VALUE;
-    List<? extends Point> l = s.getPoints();
+    final List<? extends Point> l = s.getPoints();
     for (Point point : l) {
       xleft = Math.min(xleft, point.accept(this).getX());
       xright = Math.max(xright, point.accept(this).getX());
@@ -92,7 +92,7 @@ public class BoundingBox implements Visitor<Location> {
     }
     //The x and y attributes in the Location class represent the coordinates that the Shape should be drawn at.
     // In the case of a Rectangle, this would be the top left corner and then it draws to the right and down (width and height)
-    return new Location(xleft, ydown, new Rectangle(xright-xleft, yup-ydown));
+    return new Location(xleft, ydown, new Rectangle(xright - xleft, yup - ydown));
   }
 }
 
