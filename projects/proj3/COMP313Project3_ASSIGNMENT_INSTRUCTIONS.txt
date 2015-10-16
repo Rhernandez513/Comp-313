@@ -1,0 +1,65 @@
+﻿COMP 313: Project 3
+Due date: Friday, October 9 (FIRM)
+Pair project
+If you have not yet paired up with someone, please do so by September 11 (September 13 at the latest!)
+Objectives
+An understanding of
+* Requirements analysis
+   * functional requirements
+   * nonfunctional requirements
+* Modeling
+   * UML class diagrams
+   * UML sequence diagrams
+* Design principles and patterns
+   * Dependency inversion principle
+   * Composite pattern
+   * Decorator pattern
+   * Visitor pattern
+* Java coding
+   * final-correctness
+   * @Override correctness
+   * anonymous inner classes
+   * basic Android graphics
+   * mock-based testing using Mockito
+Description
+In this project, you will complete the implementation of the simple API for drawing graphical shapes. The API design is based on the requirements from an in-class group activity.
+
+
+See also the practice midterm and its attached solutions, on which this project is based: http://laufer.cs.luc.edu/teaching/313/handouts/practice-midterm
+
+
+
+See also these examples: expressions (how to process simple arithmetic expressions) and vexpressions (how to do the same with visitors).
+Functional requirements
+Start with this code skeleton: https://github.com/lucoodevcourse/shapes-android-java. The functional requirements are embodied in the JUnit tests in the test folder; instructions for running the test are included in the README file. When your code passes all the tests, you will have fulfilled the functional requirements for grading purposes. If some of the tests do not pass, you will receive partial credit. In addition, your app should look exactly like this screenshot:
+
+
+ BCrTzwxCUAAoHJ_.png 
+
+
+
+Notes: You can use Android Studio or SourceTree or Git in a cmd or Terminal window to check out your imported Bitbucket Project, not Git Bash on Windows, and be sure to click any link that comes up to connect the Project to Gradle, otherwise it won't be connected to Gradle properly (I was not able to get that to work properly when I used Git Bash on Windows). This Project does not seem to have the problem of creating two Modules instead of only one, although Android Studio may ask if you want to remove a "VCS root" - click yes. See below under How to submit for how to name your imported Bitbucket repository.
+Nonfunctional requirements
+Specifically, complete the code in the various Java source files within the src folder. Look in the Android Studio TODO view for sections marked as TODO or FIXME and use the test cases as your guide. Besides other minor tasks, the main implementation tasks are:
+* Implementing the Size, BoundingBox, and Draw visitors
+* Implementing the missing classes Stroke, Outline, Point, and Polygon
+   * The Stroke decorator indicates the foreground color for drawing its shape.
+   * The Outline decorator does the opposite of the Fill decorator: it indicates that its shape should be drawn in outline (default) mode.
+   * A Point is a location without a shape. You should implement it using a Circle with radius 0 as its shape and override any methods as needed.
+   * A (closed) Polygon is a shape defined by a list of points; the last point should be connected to the first. Implement it as a special case of Group.
+You must not make any other changes to the code skeleton or the test cases.
+Grading
+* 0.5 code skeleton intact
+* 0.5 generated JavaDoc (in Android Studio: Tools > Generate Javadoc - use defaults)
+* 1 Size
+* 2 BoundingBox
+* 2 Draw
+* 1 Stroke
+* 1 Outline
+* 1 Point
+* 1 Polygon
+How to submit
+* As the first step in working on this project, you or your teammate will import the code skeleton into a private Bitbucket repository shared among the two of you and your instructor and TA. The name of the repository is cs313f15p3. When your work is ready to be graded, please notify your instructor and TA via both Piazza and Sakai.
+* Keep your code up to date in your repository by committing and pushing changes continually! This means that you are expected to keep your code in your Bitbucket repository (and push changes continually) as opposed to working only locally and pushing only at the end to submit your work. In this way, you will gain experience in working with version control systems.
+* Summarize your findings (answers to the questions embedded in the code) in a file called README.txt in the cs313f15p3 folder, add it to your project, and commit it to Bitbucket.
+* Notify the instructor and TA when the project is ready to be graded.
