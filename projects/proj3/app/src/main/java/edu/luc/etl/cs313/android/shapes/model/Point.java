@@ -5,7 +5,6 @@ package edu.luc.etl.cs313.android.shapes.model;
  */
 public class Point extends Location {
 
-  // FINISHED
   // A point is a Location represented as a shape
   public Point(final int x, final int y) {
     super(x, y, new Circle(0));

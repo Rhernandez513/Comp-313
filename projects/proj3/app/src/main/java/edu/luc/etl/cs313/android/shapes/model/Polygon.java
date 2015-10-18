@@ -19,7 +19,6 @@ public class Polygon extends Group {
 
 	@Override
 	public <Result> Result accept(final Visitor<Result> v) {
-		// FIXED
 		return  v.onPolygon(this);
 	}
 }

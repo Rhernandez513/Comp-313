@@ -6,8 +6,6 @@ package edu.luc.etl.cs313.android.shapes.model;
  */
 public class Size implements Visitor<Integer> {
 
-  // DONE
-
 	@Override
 	public Integer onPolygon(final Polygon p) {
 		return 1;  // Would a polygon count as one shape?

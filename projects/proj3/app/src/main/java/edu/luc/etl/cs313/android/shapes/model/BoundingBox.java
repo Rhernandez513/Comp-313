@@ -29,7 +29,7 @@ public class BoundingBox implements Visitor<Location> {
     int xright = Integer.MIN_VALUE;
     int ydown = Integer.MAX_VALUE;
     int yup = Integer.MIN_VALUE;
-    List<? extends Shape> l = g.getShapes();
+    final List<? extends Shape> l = g.getShapes();
     for (Shape shape : l) {
       final Location bb = shape.accept(this);
       final Rectangle rect = (Rectangle) bb.getShape();
@@ -62,7 +62,7 @@ public class BoundingBox implements Visitor<Location> {
 
     final int startX = (1/2) * x;
     final int startY = (1/2) * y;
-    return new Location(-startX, -startY, new Rectangle(x, y));
+    return new Location(-startX, -startY, r);
   }
 
   @Override
@@ -90,9 +90,11 @@ public class BoundingBox implements Visitor<Location> {
       ydown = Math.min(ydown, point.accept(this).getY());
       yup = Math.max(yup, point.accept(this).getY());
     }
-    //The x and y attributes in the Location class represent the coordinates that the Shape should be drawn at.
-    // In the case of a Rectangle, this would be the top left corner and then it draws to the right and down (width and height)
-    return new Location(xleft, ydown, new Rectangle(xright - xleft, yup - ydown));
+    // The x and y attributes in the Location class represent the coordinates 
+    // that the Shape should be drawn at.
+    // In the case of a Rectangle, this would be the top left corner and then 
+    // it draws to the right and down (width and height)
+    return new Location(xleft, ydown, new Rectangle((xright - xleft), (yup - ydown)));
   }
 }
 

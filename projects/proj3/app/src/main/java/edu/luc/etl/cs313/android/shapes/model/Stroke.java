@@ -6,15 +6,13 @@ package edu.luc.etl.cs313.android.shapes.model;
  */
 public class Stroke implements Shape {
 
-	// FINISHED
-
 	protected final int color;
 	protected final Shape shape;
 
 	public Stroke(final int color, final Shape shape)
 	{
-		this.color = color; // assigned color to private variable
-		this.shape = shape; // assigned shape to private variable
+		this.color = color;
+		this.shape = shape;
 	}
 
 	public int getColor() {
@@ -26,7 +24,6 @@ public class Stroke implements Shape {
 	}
 
 	@Override
-	//added a return on this Result accept
 	public <Result> Result accept(Visitor<Result> v) {
 		return v.onStroke(this);
 	}
