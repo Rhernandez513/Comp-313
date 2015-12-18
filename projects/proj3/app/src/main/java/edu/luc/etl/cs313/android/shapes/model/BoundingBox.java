@@ -39,8 +39,10 @@ public class BoundingBox implements Visitor<Location> {
       ydown = Math.min(ydown, bb.getY());
       yup = Math.max(yup, bb.getY() + rect.getHeight());
     }
-    //The x and y attributes in the Location class represent the coordinates that the Shape should be drawn at.
-    // In the case of a Rectangle, this would be the top left corner and then it draws to the right and down (width and height)
+    // The x and y attributes in the Location class represent the coordinates 
+    // that the Shape should be drawn at.
+    // In the case of a Rectangle, this would be the top left corner and then
+    // it draws to the right and down (width and height)
     return new Location(xleft, ydown, new Rectangle(xright - xleft, yup - ydown));
   }
 
